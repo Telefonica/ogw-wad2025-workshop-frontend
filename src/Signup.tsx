@@ -6,8 +6,11 @@ import './styles/App.css'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import MockHome from './MockHome'
 import Prefix from './Prefix'
+//TODO: Import libraries useCallback, useEffect, useState
+//TODO: Import v4 
 
 const GERMANY_PHONE_PREFIX = '+49'
+
 
 const Signup = () => {
   const [userId, setUserId] = useState('')
@@ -21,9 +24,15 @@ const Signup = () => {
   const [verificationResult, setVerificationResult] = useState<boolean | undefined>()
   const [userAlreadyExists, setUserAlreadyExists] = useState<boolean>(false)
   const [signupCompleted, setSignupCompleted] = useState<boolean | undefined>()
+  //TODO: Import constants networkRequestId, setNetworkRequestId
+  //TODO: isNetworkAuthenticated, setIsNetworkAuthenticated
+
+  //TODO; Create a new useCallback networkAuthorize
 
   const performSignup = useCallback(() => {
+    //TODO: get params networkResquestId
     setIsSubmitting(true)
+    //TODO: pass params to the call
     fetch(`${import.meta.env.VITE_BACKEND_URL}/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -50,7 +59,10 @@ const Signup = () => {
         setSignupCompleted(false)
       })
       .finally(() => setIsSubmitting(false))
+      //TODO add newtworkRequestId
   }, [isPhoneNumber, userId, phonePrefix, password])
+
+
 
   const verifyMessageVerificationCode = useCallback(() => {
     if (!messageVerificationCode.trim()) return
@@ -80,11 +92,16 @@ const Signup = () => {
       .finally(() => setIsSubmitting(false))
   }, [userId, isPhoneNumber, phonePrefix, messageVerificationCode])
 
+  //TODO: Trigger networkAuthorize if !isNetworkAuthenticated
+
+  //TODO: Trigger if isNetworkAuthenticated
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     if (verificationResult === false) {
       verifyMessageVerificationCode()
+      //TODO add else if phone number and not networkauthenticated set networkresquestid
     } else {
       performSignup()
     }
